@@ -18,8 +18,9 @@ public class MediaManager {
         this.tvshowslist = tvshows;
     }
 
+
     private void filmManage(Films filmselection,StreamingService streamingService){
-        System.out.println("1. Rate film");
+        System.out.println("\n1. Rate film");
         System.out.println("2. Remove film");
         System.out.println("3. Exit");
         System.out.print("Enter your choice: ");
@@ -39,6 +40,7 @@ public class MediaManager {
 
         }
     }
+
 
     public boolean isSeasonInAnyService(String tvShowName, Season newSeason) {
         for (StreamingService service : serviclistofStreamingServiceses) {
@@ -73,6 +75,63 @@ public class MediaManager {
 
 
 
+    public void tvoptions(TVShow selectedTVshow){
+        System.out.println("\n1. Rate TV show");
+        System.out.println("2. Delete TV show");
+        System.out.println("3. View seasons");
+        System.out.println("4. Exit");
+        System.out.println("Choose a option please: ");
+
+        int choice4 = scanner.nextInt();
+        scanner.nextLine();
+
+        if(choice4 == 1){
+            System.out.print("Please enter a rating: ");
+            double choice5 = scanner.nextInt();
+            selectedTVshow.setRating(choice5);
+        }else if(choice4 == 2){
+            filmManagersStreamingService.removeTvShow(selectedTVshow);
+        }else if(choice4 == 3){
+            List<Season> seasonList = selectedTVshow.getSeasons();
+            for (int i = 0; i < seasonList.size(); i++) {
+                System.out.println((i) + ". " + seasonList.get(i).getSeasonNumber() + " " +seasonList.get(i).getYearOfRelease());
+            }
+        }else if(choice4 == 4){
+            System.out.println("Returning to the previous menu...");
+            return;
+        }
+    }
+
+
+    public void additionOfSeasons(int numberofseasons,TVShow newtvShow){
+        for(int i = 0;i<numberofseasons;i++){
+
+            System.out.print("\nEnter the year of release of season " + i + ": ");
+            int yearofSeasonrelease = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.print("Enter the number of Episodes for season " + i + ": ");
+            int numberofEpisodes = scanner.nextInt();
+            scanner.nextLine();
+
+            Season newSeason = new Season(i,yearofSeasonrelease,numberofEpisodes);
+
+            boolean condition = (isSeasonInAnyService(newtvShow.getName(),newSeason));
+
+            if(condition){
+                System.out.println("Couldnt add season");
+            }else{
+
+                newtvShow.addSeason(newSeason);
+                System.out.println("Successfully added season to tv service");
+            }
+
+
+
+        }
+    }
+
+
 
 
 
@@ -92,27 +151,27 @@ public class MediaManager {
 
             switch (choice) {
                 case 1:
-                    System.out.print("\nChoose a film ");
                     List<Films> filmsList = filmManagersStreamingService.getFilms();
                     if (filmsList.isEmpty()) {
                         System.out.println("No available films.");
+                        continue;
                     } else {
-                        System.out.println("\nAvailable Films:");
+                        System.out.println("\nChoose a film ");
+                        System.out.println("Available Films:");
                         for (int i = 0; i < filmsList.size(); i++) {
-                            System.out.println((i) + ". " + filmsList.get(i).getName());
+                            System.out.println((i + 1) + ". " + filmsList.get(i).getName());
                         }
 
-                        System.out.println("Which film would you like to view: ");
+                        System.out.print("Which film would you like to view: ");
 
                         int choice2 = scanner.nextInt();
 
                         scanner.nextLine();
-                        Films filmselection = filmsList.get(choice2);
+                        Films filmselection = filmsList.get(choice2 - 1);
                         filmManage(filmselection,filmManagersStreamingService);
-
-
+                        break;
                     }
-                    break;
+
 
                 case 2:
 
@@ -151,32 +210,37 @@ public class MediaManager {
                         System.out.println("Film added successfully!");
                     }
                     break;
+
+
+
+
                 case 3:
                     System.out.println("\nTV SHOWS");
 
-                    for (int i = 0; i < tvshowslist.size(); i++) {
-                        System.out.println((i) + ". " + tvshowslist.get(i).getName());
+                    if(tvshowslist.isEmpty()){
+                        System.out.println("No TV shows exist");
+                        continue;
                     }
-                    System.out.print("###Choose a TV show to view### ");
+
+                    for (int i = 0; i < tvshowslist.size(); i++) {
+                        System.out.println((i + 1) + ". " + tvshowslist.get(i).getName());
+                    }
+
+                    System.out.print("Choose a TV show to view ");
                     int choice3 = scanner.nextInt();
 
                     scanner.nextLine();
-                    TVShow selectedTVshow = tvshowslist.get(choice3);
+                    TVShow selectedTVshow = tvshowslist.get(choice3 - 1);
 
-                    System.out.print("1. Rate TV show");
-                    System.out.print("2. Delete TV show");
-                    System.out.print("Choose a option please: ");
+                    tvoptions(selectedTVshow);
 
-                    int choice4 = scanner.nextInt();
-                    scanner.nextLine();
+                    break;
 
-                    if(choice4 == 1){
-                        System.out.println("Please enter a rating: ");
-                        double choice5 = scanner.nextInt();
-                        selectedTVshow.setRating(choice5);
-                    }else if(choice == 2){
-                        filmManagersStreamingService.removeTvShow(selectedTVshow);
-                    }
+
+
+
+
+
                 case 4:
                     System.out.print("\nEnter the name of the TV show: ");
                     String tvshowname = scanner.nextLine();
@@ -193,32 +257,7 @@ public class MediaManager {
                     TVShow newtvShow = new TVShow(tvshowname,tvshowgenre);
                     filmManagersStreamingService.addtvshow(newtvShow);
 
-
-                    for(int i = 0;i<numberofseasons;i++){
-
-                        System.out.println("Enter the year of release of season " + i + ": ");
-                        int yearofSeasonrelease = scanner.nextInt();
-                        scanner.nextLine();
-
-                        System.out.println("Enter the numberof Episodes " + i + ": ");
-                        int numberofEpisodes = scanner.nextInt();
-                        scanner.nextLine();
-
-                        Season newSeason = new Season(i,yearofSeasonrelease,numberofEpisodes);
-
-                        boolean condition = (isSeasonInAnyService(newtvShow.getName(),newSeason));
-
-                            if(condition){
-                                System.out.println("unlucky");
-                            }else{
-
-                                newtvShow.addSeason(newSeason);
-                                System.out.println("success");
-                            }
-
-
-
-                    }
+                    additionOfSeasons(numberofseasons,newtvShow);
                     break;
 
                 case 5:

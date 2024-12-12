@@ -1,52 +1,27 @@
 package com.mediaRatingApp;
 
-public class Films {
-    private String name;
+public class Films extends Media {
     private int year;
-    private String genre;
-    private double rating;
     private int runtime;
 
     public Films(String name, int year, String genre, int runtime) {
-        this.name = name;
+        super(name, genre); // Call superclass constructor
         this.year = year;
-        this.genre = genre;
         this.runtime = runtime;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getYear() {
         return year;
     }
 
-    public String getGenre() {
-        return genre;
-    }
-
-
-
-    public double getRating() {
-        return rating;
-    }
-
-    public int getRuntime(){
+    public int getRuntime() {
         return runtime;
     }
 
-    public void setRating(double rating) {
-        if (rating >= 0 && rating <= 5) {
-            this.rating = rating;
-        } else {
-            System.out.println("Please give a rating between 0 and 5");
-        }
+    @Override
+    public void displayDetails() {
+        System.out.println("Film: " + getName() + ", Year: " + year + ", Genre: " + getGenre() +
+                ", Rating: " + getRating() + ", Runtime: " + runtime + " minutes");
     }
-
-
-
-
-
 
 }

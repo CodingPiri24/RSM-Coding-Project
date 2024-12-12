@@ -40,7 +40,7 @@ public class Main {
                             System.out.println((i + 1) + ". " + allServices.get(i).getName());
                         }
 
-                        System.out.println("Enter your choice: ");
+                        System.out.print("Enter your choice: ");
                         //store users choice into server choice
                         int serviceChoice = scanner.nextInt();
                         scanner.nextLine();
@@ -48,12 +48,13 @@ public class Main {
                         String nameofStreamingService = selectedService.getName();
 
                         //creating a list of services and tvshowslist as these will be changes in mediamanager accordingly
+
                         List<StreamingService> services = serviceManager.accessListOfStreamingSites();
                         List<TVShow> tvshowslist = selectedService.getTvshowslist();
 
                         MediaManager mediaManager = new MediaManager(selectedService,services,tvshowslist);
 
-                        //call to mediaManager class as that class handles the rest of the requests with the tv shows and films
+                        //call to mediaManager class as that class handles the rest of the requests with the tv shows and films1
                         mediaManager.accessMedia();
 
                     }
