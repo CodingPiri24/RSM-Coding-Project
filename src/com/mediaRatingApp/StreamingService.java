@@ -94,7 +94,10 @@ public class StreamingService {
 
     public void removeMedia(Media media){
 
+        //function depending on the type of Media passed in removes the film or tvshow
 
+
+        //function to remove a film
         if (media instanceof Films) {
             for (int i = 0; i < listofMedia.size(); i++) {
                 Media media2 = listofMedia.get(i);
@@ -108,6 +111,7 @@ public class StreamingService {
             }
 
 
+         //function to remove a tvshow
         }else if(media instanceof TVShow){
             for (int i = 0; i < listofMedia.size(); i++) {
                 Media media2 = listofMedia.get(i);

@@ -39,3 +39,8 @@ Instructions to set up the project locally.
 - IDE such as IntelliJ IDEA or Eclipse.
 - Maven or Gradle (if applicable).
 
+
+### **Installation**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
