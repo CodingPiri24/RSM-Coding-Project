@@ -8,12 +8,17 @@ public class StreamingService {
     private double price;
     private List<Films> films;
     private List<TVShow> tvshows;
+    private  List<Media> listofMedia;
 
+
+
+    
     public StreamingService(String name, double price) {
         this.servicename = name;
         this.price = price;
         this.films = new ArrayList<>();
         this.tvshows = new ArrayList<>();
+        this.listofMedia = new ArrayList<>();;
     }
 
     public String getName() {
@@ -25,27 +30,33 @@ public class StreamingService {
     }
 
     public List<Films> getFilms() {
-        return new ArrayList<>(films);
-    }
+        List<Films> filmsList = new ArrayList<>();
 
-    public boolean addFilm(Films film) {
-        //Looking through the list of films checking if any of the items of type films match the film passed into add film
-        for (Films existingFilm : films) {
-            boolean condition = ((existingFilm.getName() == film.getName()) && (existingFilm.getYear() == film.getYear()));
-            if (condition) {
-                System.out.println("Another films matches the name of this film duplicate film");
-                return false;
+        // Iterate through the list of media and only add objects of type films
+        for (Media media : listofMedia) {
+            if (media instanceof Films) {
+                filmsList.add((Films) media);
             }
-
         }
-        // If film isnt found in list of current stored films then it is added to the list
-        films.add(film);
-        return true;
+
+        // Return the list of Films objects
+        return filmsList;
     }
 
-    public boolean removeFilm(Films film) {
-        return films.remove(film);
+    public List<TVShow> getTvshowslist(){
+        List<TVShow> tvshowlist = new ArrayList<>();
+
+        // Iterate through the list of media and only add objects of type films
+        for (Media media : listofMedia) {
+            if (media instanceof TVShow) {
+                tvshowlist.add((TVShow) media);
+            }
+        }
+
+        // Return the list of Films objects
+        return tvshowlist;
     }
+
 
     public boolean containsFilm(Films newFilm) {
         if (films.contains(newFilm)) {
@@ -54,15 +65,67 @@ public class StreamingService {
         return false;
     }
 
-    public List<TVShow> getTvshowslist(){
-        return tvshows;
+    public void addMedia(Media media) {
+        // Check if the media is either a Film or a TVShow
+
+        if (media instanceof Films) {
+
+            //Looking through the list of films checking if any of the items of type films match the film passed into add film
+
+            for (Films existingFilm : films) {
+                boolean condition = ((existingFilm.getName() == existingFilm.getName()) && (existingFilm.getYear() == existingFilm.getYear()));
+                if (condition) {
+                    System.out.println("Another films matches the name of this film duplicate film");
+                    return;
+                }
+
+            }
+
+            // If film isnt found in list of current stored films then it is added to the list
+            listofMedia.add(media);
+
+        } else if(media instanceof TVShow) {
+            listofMedia.add(media);
+        }else{
+            System.out.println("Cannot add the media. Only Films or TVShows are allowed.");
+
+        }
     }
 
-    public boolean removeTvShow(TVShow showname){
-        return tvshows.remove(showname);
+    public void removeMedia(Media media){
+
+
+        if (media instanceof Films) {
+            for (int i = 0; i < listofMedia.size(); i++) {
+                Media media2 = listofMedia.get(i);
+                if (media2 instanceof Films) {
+                    Films existingFilm = (Films) media2;
+                    if (existingFilm.getName().equals(existingFilm.getName()) && existingFilm.getYear() == existingFilm.getYear()) {
+                        listofMedia.remove(i);
+
+                    }
+                }
+            }
+
+
+        }else if(media instanceof TVShow){
+            for (int i = 0; i < listofMedia.size(); i++) {
+                Media media2 = listofMedia.get(i);
+                if (media2 instanceof TVShow) {
+                    TVShow existingShow = (TVShow) media2;
+                    if (existingShow.getName().equals(existingShow.getName()) && existingShow.getGenre().equals(existingShow.getGenre())) {
+                        listofMedia.remove(i);
+                    }
+                }
+            }
+        }else{
+            System.out.println("Cannot remove the media. Only Films or TVShows are allowed.");
+
+        }
     }
 
-    public void addtvshow(TVShow tvshowname){
-        tvshows.add(tvshowname);
+    public List<Media> getMediaList(){
+        return listofMedia;
     }
+
 }

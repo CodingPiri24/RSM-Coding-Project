@@ -1,5 +1,6 @@
 package com.mediaRatingApp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,7 +9,6 @@ public class Main {
     private List<StreamingService> services;
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
         StreamingServiceManager serviceManager = new StreamingServiceManager();
 
@@ -35,6 +35,7 @@ public class Main {
                     if (allServices.isEmpty()) {
                         System.out.println("No services available.");
                     } else {
+                        //If list isnt empty then services they have added are presented
                         System.out.println("\nFrom these options please pick which streaming service to access");
                         for (int i = 0; i < allServices.size(); i++) {
                             System.out.println((i + 1) + ". " + allServices.get(i).getName());
@@ -51,8 +52,8 @@ public class Main {
 
                         List<StreamingService> services = serviceManager.accessListOfStreamingSites();
                         List<TVShow> tvshowslist = selectedService.getTvshowslist();
-
-                        MediaManager mediaManager = new MediaManager(selectedService,services,tvshowslist);
+                        List<Media> mediaList = selectedService.getMediaList();
+                        MediaManager mediaManager = new MediaManager(selectedService,services,tvshowslist,mediaList);
 
                         //call to mediaManager class as that class handles the rest of the requests with the tv shows and films1
                         mediaManager.accessMedia();

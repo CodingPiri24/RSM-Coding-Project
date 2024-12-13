@@ -5,7 +5,8 @@ public class Films extends Media {
     private int runtime;
 
     public Films(String name, int year, String genre, int runtime) {
-        super(name, genre); // Call superclass constructor
+        // Call superclass constructor to store name of film
+        super(name, genre);
         this.year = year;
         this.runtime = runtime;
     }

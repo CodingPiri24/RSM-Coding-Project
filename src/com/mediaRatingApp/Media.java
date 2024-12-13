@@ -8,7 +8,7 @@ public abstract class Media {
     public Media(String name, String genre) {
         this.name = name;
         this.genre = genre;
-        this.rating = 0.0; // Default rating
+        this.rating = 0.0;
     }
 
     public String getName() {

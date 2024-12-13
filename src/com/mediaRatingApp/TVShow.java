@@ -7,7 +7,8 @@ public class TVShow extends Media {
     private List<Season> seasons;
 
     public TVShow(String name, String genre) {
-        super(name, genre); // Call superclass constructor
+        // Call superclass constructor to store name of tvshow
+        super(name, genre);
         this.seasons = new ArrayList<>();
     }
 

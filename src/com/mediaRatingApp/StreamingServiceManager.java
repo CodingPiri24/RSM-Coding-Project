@@ -7,6 +7,8 @@ import java.util.Scanner;
 public class StreamingServiceManager {
 
     private List<StreamingService> services;
+    ;
+
 
 
     public StreamingServiceManager(){
@@ -30,6 +32,8 @@ public class StreamingServiceManager {
     public List<StreamingService> accessListOfStreamingSites() {
         return services;
     }
+
+
 
 
 
