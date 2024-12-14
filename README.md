@@ -26,9 +26,8 @@ of the application when desired.This modular design ensures a clean user experie
 
 
 ## **Technologies Used**
-Mention the technologies, frameworks, or libraries used in the project:
 - **Programming Language**: Java
-- **IDE**: IntelliJ IDEA (or your preferred IDE)
+- **IDE**: IntelliJ IDEA
 
 
 ## **Getting Started**
